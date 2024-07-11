@@ -1,5 +1,6 @@
 
-import 'package:dating_app/TextStyle.dart';
+import 'package:dating_app/Screens/Components/TextStyle.dart';
+import 'package:dating_app/Screens/ProfilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 
@@ -55,10 +56,16 @@ class Component extends StatelessWidget {
                               fontSize: 20,
                               fontWeight: FontWeight.bold)),
                       ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProfileScreen()),
+                            );
+                          },
                           child: Text("See profile",
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 16)),
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 16)),
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(7.0)),
@@ -77,8 +84,8 @@ class Component extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: details
                             .map((detail) => Padding(
-                                  padding:
-                                      EdgeInsets.only(bottom: size.height * 0.01),
+                                  padding: EdgeInsets.only(
+                                      bottom: size.height * 0.01),
                                   child: TextStyles(data: detail),
                                 ))
                             .toList(),
