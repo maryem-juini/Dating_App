@@ -1,7 +1,7 @@
 
-import 'package:dating_app/HomePage.dart';
 import 'package:dating_app/Screens/DatesPage.dart';
 import 'package:dating_app/Screens/Footer/BottomIcon.dart';
+import 'package:dating_app/Screens/HomePage.dart';
 import 'package:dating_app/Screens/MessagesPage.dart';
 import 'package:dating_app/Screens/ProfilePage.dart';
 import 'package:flutter/material.dart';

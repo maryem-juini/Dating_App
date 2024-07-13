@@ -1,9 +1,10 @@
-
+import 'package:dating_app/Screens/DateFinder.dart';
 import 'package:dating_app/Screens/Footer/BottomPage.dart';
 import 'package:dating_app/Screens/Header/HeaderPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dating_app/Providers/LocationProvider.dart';
+import 'package:searchfield/searchfield.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -40,7 +41,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final List<String> filteredList = places
         .where((place) => place.toLowerCase().contains(query.toLowerCase()))
         .toList();
-
     ref.read(filteredPlacesProvider.notifier).state = filteredList;
   }
 
@@ -48,7 +48,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     final filteredPlaces = ref.watch(filteredPlacesProvider);
-    
+
     return Stack(
       children: [
         Container(
@@ -79,24 +79,61 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   ),
                 ),
                 const SizedBox(height: 15),
-                TextField(
-                  controller: _searchController,
-                  focusNode: _focusNode,
-                  onChanged: _filterPlaces,
-                  decoration: const InputDecoration(
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                    prefixIcon: Icon(
-                      Icons.location_on_outlined,
-                      color: Colors.white,
-                      size: 30,
+                Row(
+                  children: [
+                    Expanded(
+                      child: SearchField<String>(
+                        controller: _searchController,
+                        suggestions: ref.read(placesProvider)
+                            .map((place) => SearchFieldListItem<String>(
+                                place,
+                                item: place,
+                              ))
+                            .toList(),
+                        onSuggestionTap: (SearchFieldListItem<String> suggestion) {
+                          setState(() {
+                            _searchController.text = suggestion.item!;
+                          });
+                        },
+                        searchStyle: TextStyle(color: Colors.white),
+                        searchInputDecoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                          prefixIcon: Icon(
+                            Icons.location_on_outlined,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                          labelText: 'Location',
+                          labelStyle: TextStyle(color: Colors.white),
+                          filled: true,
+                          fillColor: Colors.transparent,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                            borderSide: BorderSide(color: Colors.white, width: 1),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                            borderSide: BorderSide(color: Colors.white, width: 1),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                            borderSide: BorderSide(color: Colors.white, width: 2),
+                          ),
+                        ),
+                      ),
                     ),
-                    labelText: 'Location',
-                    labelStyle: TextStyle(color: Colors.white),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                    IconButton(
+                      icon: Icon(Icons.arrow_forward_outlined, color: Colors.white, size: 30),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DateFinderScreen(),
+                          ),
+                        );
+                      },
                     ),
-                  ),
+                  ],
                 ),
                 SizedBox(height: size.height * 0.02),
                 Expanded(
@@ -109,7 +146,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           style: const TextStyle(color: Colors.white),
                         ),
                         onTap: () {
-                          _searchController.text = filteredPlaces[index];
+                          setState(() {
+                            _searchController.text = filteredPlaces[index];
+                          });
                         },
                       );
                     },
