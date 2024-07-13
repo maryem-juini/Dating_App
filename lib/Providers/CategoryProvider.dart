@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final categoriesProvider = Provider<List<String>>((ref) {
@@ -13,15 +12,15 @@ final categoriesProvider = Provider<List<String>>((ref) {
   ];
 });
 
-final categoryIconProvider = Provider<List<IconData>>((ref) {
+final categoryIconProvider = Provider<List<String>>((ref) {
   return [
-    Icons.all_inclusive,
-    Icons.restaurant,
-    Icons.local_bar,
-    Icons.golf_course,
-    Icons.movie,
-    Icons.park,
-    Icons.museum,
+    '♾️',
+    '🍴',
+    '🍸',
+    '⛳',
+    '🎬',
+    '🌳',
+    '🏛️', 
   ];
 });
 

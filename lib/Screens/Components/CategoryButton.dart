@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CategoryButton extends StatelessWidget {
   final String label;
-  final IconData icon;
+  final String icon;
   final bool isSelected;
   final VoidCallback onTap;
 
@@ -29,8 +29,13 @@ class CategoryButton extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: Colors.white, size: 30),
-            const SizedBox(height: 7),
+            Text(
+              icon,
+              style: const TextStyle(
+                fontSize: 25,
+              ),
+            ),
+            const SizedBox(height: 5),
             Text(
               label,
               style: const TextStyle(

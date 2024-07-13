@@ -41,7 +41,7 @@ class _DateFinderScreenState extends ConsumerState<DateFinderScreen> {
               backgroundColor: const Color(0xFF161616),
               child: Container(
                 padding: const EdgeInsets.all(20.0),
-                height: 460,
+                height: 470,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
