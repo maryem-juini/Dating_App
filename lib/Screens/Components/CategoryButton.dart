@@ -20,7 +20,7 @@ class CategoryButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: 80,
-        height: 85,
+        height: 90,
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: isSelected ? const Color.fromARGB(255, 86, 86, 86) : const Color(0xFF292929),

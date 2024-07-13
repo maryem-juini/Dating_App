@@ -90,7 +90,7 @@ class _DateFinderScreenState extends ConsumerState<DateFinderScreen> {
                         },
                       ),
                     ),
-                    const SizedBox(height: 50),
+                    const SizedBox(height: 40),
                     const Text(
                       'Timeframe',
                       style: TextStyle(
@@ -98,7 +98,7 @@ class _DateFinderScreenState extends ConsumerState<DateFinderScreen> {
                         fontSize: 16,
                       ),
                     ),
-                    const SizedBox(height: 15),
+                    const SizedBox(height: 10),
                     const Row(
                       children: [
                         Icon(Icons.calendar_today, color: Colors.white),

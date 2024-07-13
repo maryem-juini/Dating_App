@@ -46,8 +46,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    final filteredPlaces = ref.watch(filteredPlacesProvider);
 
     return Stack(
       children: [
@@ -69,7 +67,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: size.height * 0.2),
                 const Text(
                   "Where to ?",
                   style: TextStyle(
@@ -84,20 +81,31 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     Expanded(
                       child: SearchField<String>(
                         controller: _searchController,
-                        suggestions: ref.read(placesProvider)
+                        suggestions: ref
+                            .read(placesProvider)
                             .map((place) => SearchFieldListItem<String>(
-                                place,
-                                item: place,
-                              ))
+                                  place,
+                                  item: place,
+                                ))
                             .toList(),
-                        onSuggestionTap: (SearchFieldListItem<String> suggestion) {
+                        onSuggestionTap:
+                            (SearchFieldListItem<String> suggestion) {
                           setState(() {
                             _searchController.text = suggestion.item!;
                           });
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DateFinderScreen(),
+                            ),
+                          );
                         },
-                        searchStyle: TextStyle(color: Colors.white),
+                        searchStyle: TextStyle(
+                            color: Color.fromARGB(255, 255, 255, 255)),
+                        
                         searchInputDecoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 15),
                           prefixIcon: Icon(
                             Icons.location_on_outlined,
                             color: Colors.white,
@@ -106,53 +114,32 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           labelText: 'Location',
                           labelStyle: TextStyle(color: Colors.white),
                           filled: true,
-                          fillColor: Colors.transparent,
+                          fillColor: const Color.fromARGB(255, 0, 0, 0).withOpacity(
+                              0.2),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(30)),
-                            borderSide: BorderSide(color: Colors.white, width: 1),
+                            borderSide:
+                                BorderSide(color: Colors.white, width: 1),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(30)),
-                            borderSide: BorderSide(color: Colors.white, width: 1),
+                            borderSide:
+                                BorderSide(color: Colors.white, width: 1),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(30)),
-                            borderSide: BorderSide(color: Colors.white, width: 2),
+                            borderSide:
+                                BorderSide(color: Colors.white, width: 2),
                           ),
+                        ),
+                        suggestionStyle:
+                    const TextStyle(fontSize: 15, color: Colors.white),
+                        suggestionsDecoration: SuggestionDecoration(
+                          color: Color.fromARGB(255, 18, 18, 18),
                         ),
                       ),
                     ),
-                    IconButton(
-                      icon: Icon(Icons.arrow_forward_outlined, color: Colors.white, size: 30),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DateFinderScreen(),
-                          ),
-                        );
-                      },
-                    ),
                   ],
-                ),
-                SizedBox(height: size.height * 0.02),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: filteredPlaces.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(
-                          filteredPlaces[index],
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            _searchController.text = filteredPlaces[index];
-                          });
-                        },
-                      );
-                    },
-                  ),
                 ),
               ],
             ),
