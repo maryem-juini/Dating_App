@@ -25,7 +25,8 @@ class SearchingScreen extends StatelessWidget {
                 child: Text('Finding you a date ...',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 30,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold
                   ))
               ),
               Expanded(child: Container()),
