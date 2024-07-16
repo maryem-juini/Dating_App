@@ -1,6 +1,7 @@
 
 import 'package:dating_app/Screens/DateFinder.dart';
 import 'package:dating_app/Screens/HomePage.dart';
+import 'package:dating_app/Screens/SearchingPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Dating App',
       theme: ThemeData(scaffoldBackgroundColor: Color(0xFF000000)),
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: DateFinderScreen(),
     );
   }
 }
